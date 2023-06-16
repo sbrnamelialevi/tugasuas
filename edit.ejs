@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Pengguna</title>
+  <link rel="stylesheet" href="/style.css">
+  <style>
+    /* Tambahkan styling khusus untuk form di dalam tag <style> */
+    .form-group {
+        margin-bottom: 20px;
+    }
+    
+    label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+    
+    input[type="text"],
+    input[type="email"],
+    select {
+        width: 100%;
+        padding: 8px;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+    }
+    
+    button[type="submit"] {
+        padding: 10px 20px;
+        background-color: #7c4980;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    
+    button[type="submit"]:hover {
+        background-color: #520057;
+    }
+</style>
+</head>
+<body>
+    <div class="container">
+        <nav class="sidebar">
+          <ul>
+            <li><a href="/">Data Pembayaran</a></li>
+            <li><a href="/add" class="active">Tambah Pengguna</a></li>
+            <li><a href="/edit">Edit Data</a></li>
+          </ul>
+        </nav></div>
+    <div class="content">
+  <h1>Edit Pengguna</h1>
+
+  <form action="/edit/<%= user.id %>" method="POST">
+    <div class="form-group">
+        <label for="id">ID NRP:</label>
+        <input type="text" id="id" name="id" value="<%= user.id %>" required>
+      </div>
+    <div class="form-group">
+      <label for="nama">Nama:</label>
+      <input type="text" id="nama" name="nama" value="<%= user.nama %>" required>
+    </div>
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" value="<%= user.email %>" required>
+    </div>
+    <div class="form-group">
+        <label for="status_bayar">Status Bayar:</label>
+        <select id="status_bayar" name="status_bayar" required>
+          <option value="Belum Bayar" <% if (user.status_bayar === 'Belum Bayar') { %>selected<% } %>>Belum Bayar</option>
+          <option value="Bayar" <% if (user.status_bayar === 'Bayar') { %>selected<% } %>>Bayar</option>
+        </select>
+      </div>
+    <div class="button-container">
+      <button class ="buttonAdd" type="submit">Simpan</button>
+    </div>
+    <div class="button-container">
+      <button class ="buttonCancel" type="button" onclick="confirmCancel()">Batal</button>
+    </div>
+  </form></div>
+
+  <script>
+    function confirmCancel() {
+      var result = confirm("Apakah Anda yakin ingin membatalkan?");
+      if (result) {
+        // Redirect ke halaman sebelumnya atau tindakan lain yang diinginkan
+      }
+    }
+  </script>
+  <footer>
+    <p>&copy; 2023 by Sabrina Amelialevi. All rights reserved.</p>
+  </footer>
+</body>
+</html>

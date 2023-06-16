@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data Pembayaran</title>
+    <link rel="stylesheet" href="/style.css">
+    <script  src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        function downloadSelectedData() {
+        const selectedIds = Array.from(document.querySelectorAll('input[name="selectRow"]:checked'))
+    .map(checkbox => checkbox.value);
+
+    if (selectedIds.length === 0) {
+        alert('Pilih setidaknya satu data untuk diunduh.');
+    return; }
+
+    axios.post('/download-selected', { ids: selectedIds })
+    .then(response => {
+      const link = document.createElement('a');
+      link.href = response.data.url;
+      link.download = response.data.filename;
+      link.click();
+    })
+    .catch(error => {
+      console.error(error);
+    });
+    }
+    </script>
+
+</head>
+<body>
+  <div class="container">
+    <div class="sidebar">
+
+          <!-- Menu items -->
+          <ul>
+            <li><a href="#data-pembayaran">Data Pembayaran</a></li>
+            <li><a href="#tambah-data">Tambah Data</a></li>
+            <li><a href="#edit-data">Edit Data</a></li>
+          </ul>
+        </div></div>
+
+    <!--isi content dengan tabel didalamnya-->
+  <div class="content">
+    <h1 class="table-title">Data Pembayaran</h1>
+  <div class="table-container"> 
+  <table style="table-layout: fixed;">
+    <thead>
+      <tr>
+        <th>Select</th>
+        <th>ID</th>
+        <th>Nama</th>
+        <th>Email</th>
+        <th>Status Bayar</th>
+        <th>Aksi</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% users.forEach(function(user) { %>
+        <tr>
+          <td><input type="checkbox" name="selectRow" value="<%= user.id %>"></td>
+          <td><%= user.id %></td>
+          <td><%= user.nama %></td>
+          <td><%= user.email %></td>
+          <td><%= user.status_bayar %></td>
+          <td>
+            <a href="/edit/<%= user.id %>" class="button">Edit</a>
+            <a href="/delete/<%= user.id %>" class="button">Hapus</a>
+          </td>
+        </tr>
+      <% }); %>
+    </tbody>
+
+  </table>
+</div> 
+<div><br><br><a href="/add" class="buttonAdd">Tambah Pengguna</a>
+    <button onclick="downloadSelectedData()" class="buttonCancel">Unduh Data Terpilih</button></div>
+
+<div>
+<footer>
+    <p>&copy; 2023 by Sabrina Amelialevi. All rights reserved.</p>
+      </footer></div>
+</body>
+</html>

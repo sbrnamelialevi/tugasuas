@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Pembayaran - Tambah Pengguna</title>
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        /* Tambahkan styling khusus untuk form di dalam tag <style> */
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        input[type="text"],
+        input[type="email"],
+        select {
+            width: 100%;
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+        
+        button[type="submit"] {
+            padding: 10px 20px;
+            background-color: #7c4980;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        button[type="submit"]:hover {
+            background-color: #520057;
+        }
+    </style>
+</head>
+<body>
+  <div class="container">
+  <nav class="sidebar">
+    <ul>
+      <li><a href="/">Data Pembayaran</a></li>
+      <li><a href="/add" class="active">Tambah Pengguna</a></li>
+      <li><a href="/edit">Edit Data</a></li>
+    </ul>
+  </nav></div>
+  <div class="content">
+    <h2>Tambah Pengguna</h2>
+            <% if (locals.warning) { %>
+                <div class="warning">
+                    <%= locals.warning %>
+                </div>
+            <% } %>
+  <form action="/add" method="POST">
+    <div class="form-group">
+      <label for="id">ID:</label>
+      <input type="text" id="id" name="id" required>
+    </div>
+    <div class="form-group">
+      <label for="nama">Nama:</label>
+      <input type="text" id="nama" name="nama" required>
+    </div>
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
+    </div>
+    <div class="form-group">
+      <label for="status_bayar">Status Bayar:</label>
+      <!--<input type="text" id="status_bayar" name="status_bayar" required>-->
+      <select id="status_bayar" name="status_bayar" required>
+        <option value="Belum Bayar">Belum Bayar</option>
+        <option value="Bayar">Bayar</option>
+      </select>
+    </div>
+    <div class="button-container">
+        <button class ="buttonAdd" type="submit">Tambah</button>
+        <a href="/" class="buttonCancel">Batal</a>
+      </div>
+  </form>
+  <!--untuk notifikasi bila batal-->
+  <script>
+    const cancelButton = document.querySelector('.buttonCancel');
+    cancelButton.addEventListener('click', function(event) {
+      event.preventDefault();
+      const confirmation = confirm('Apakah Anda yakin untuk membatalkan ? data yang sudah diinput tidak akan tersimpan apabila anda memilih untuk batal');
+      if (confirmation) {
+        window.location.href = '/'; // Ganti dengan URL halaman yang sesuai
+      }
+    });
+  </script>
+  <div><footer>
+    <p>&copy; 2023 by Sabrina Amelialevi. All rights reserved.</p>
+  </footer>
+</body>
+</html>
